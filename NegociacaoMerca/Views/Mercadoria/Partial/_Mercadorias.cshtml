@@ -1,0 +1,33 @@
+﻿@model List<NegociacaoMerca.Entidades.Mercadoria>
+<table class="table table-hover">
+    <thead>
+        <tr>
+
+            <th>CodMercadoria</th>
+            <th>TipoMercadoria</th>
+            <th>NomeMercadoria</th>
+            <th>Quantidade</th>
+            <th>Preco</th>
+            <th>TipoNegociacao</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var u in Model)
+        {
+            <tr>
+                <td>@u.CodMercadoria</td>
+                <td>@u.TipoMercadoria</td>
+                <td>@u.NomeMercadoria</td>
+                <td>@u.Quantidade</td>
+                <td>@u.Preco</td>
+                <td>@u.TipoNegociacao</td>
+                <td><button class="btn btn-danger" onclick="window.location.href = '@Url.Action("Excluir", "Agentes", new { id = u.Id })';"> Excluir </button></td>
+                <td><button class="btn btn-success" onclick="window.location.href = '@Url.Action("Editar", "Mercadoria", new { id = u.Id })';"> Editar </button></td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+

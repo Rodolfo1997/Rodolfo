@@ -1,0 +1,50 @@
+﻿@model List<NegociacaoMerca.Entidades.Mercadoria>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<button style="float:right; clear:both;" class="btn btn-info" onclick="Cadastrar();"> Nova Mercadoria </button>
+
+@Html.Label("Nome Mercadoria")
+@*@Html.TextBox("nomes", "", new { id = "NomeAgente", style = "margin-bottom:40px;" })*@
+<button style="clear:both;" class="btn btn-info" onclick="Buscar();"> Buscar </button>
+
+<div id="mercadoriaTable">
+
+</div>
+
+@section scripts{
+    <script>
+    $(function () {
+
+        ListarMercadorias();
+
+    })
+
+    function ListarMercadorias() {
+        $.ajax({
+            url: '@Url.Action("ListarMercadorias", "Mercadoria")',
+            type: "post",
+            dataType: "html",
+            data: {
+
+            },
+
+            success: function (data) {
+                $('#mercadoriaTable').html(data);
+            }
+        });
+    }
+
+    function Cadastrar() {
+        window.location.href = '@Url.Action("Cadastrar", "Mercadoria")';
+        }
+
+        function Editar() {
+            window.location.href = '@Url.Action("Editar", "Mercadoria")';
+        }
+
+    </script>
+}

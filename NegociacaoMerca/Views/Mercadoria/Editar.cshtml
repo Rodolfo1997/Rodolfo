@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Cadastrar";
+}
+
+@model NegociacaoMerca.Entidades.Mercadoria
+
+<h2>Cadastrar Mercadoria</h2>
+
+@using (Html.BeginForm("SalvarEdicao", "Mercadoria", FormMethod.Post, new { @id = "MercadoriaForm" }))
+{
+<p id="MenssagemErro" style="color:red; display:none"> Por favor! Preencha os Campos</p>
+
+@Html.HiddenFor(a => a.Id, new { @class = "form-control" })
+
+@Html.LabelFor(a => a.CodMercadoria, "Código Mercadoria")
+@Html.TextBoxFor(a => a.CodMercadoria, new { @class = "form-control" })
+
+@Html.LabelFor(a => a.TipoMercadoria, "Tipo Mercadoria")
+@Html.TextBoxFor(a => a.TipoMercadoria, new { @class = "form-control" })
+
+
+@Html.LabelFor(a => a.NomeMercadoria, "Nome Mercadoria")
+@Html.TextBoxFor(a => a.NomeMercadoria, new { @class = "form-control" })
+
+
+@Html.LabelFor(a => a.Quantidade, "Quantidade")
+@Html.TextBoxFor(a => a.Quantidade, new { @class = "form-control" })
+
+
+@Html.LabelFor(a => a.Preco, "Preco")
+@Html.TextBoxFor(a => a.Preco, new { @class = "form-control" })
+
+@Html.Label("Tipo Negociacao")
+@Html.EnumDropDownListFor(a => a.TipoNegociacao, "Tipo Negociacao", new { @class = "form-control" })
+
+}
+<button class="btn-success" style="margin-top:20px;" onclick="Salvar();"> Cadastrar </button>
+
+@section scripts{
+    <script>
+        $(function () { })
+
+        function Salvar() {
+
+            debugger;
+            var codMercadoria = $("#CodMercadoria").val();
+            var tipoMercadoria = $("#TipoMercadoria").val();
+            var nomeMercadoria = $("#NomeMercadoria").val();
+            var quantidade = $("#Quantidade").val();
+            var preco = $("#Preco").val();
+
+            if (codMercadoria == "" && tipoMercadoria == "" && nomeMercadoria == "" && quantidade == "" && preco == "") {
+                $("#MenssagemErro").show();
+            }
+            else {
+                $("#MercadoriaForm").submit();
+            }
+
+        }
+    </script>
+}
