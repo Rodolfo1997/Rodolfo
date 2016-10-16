@@ -3,12 +3,12 @@
     <thead>
         <tr>
 
-            <th>CodMercadoria</th>
-            <th>TipoMercadoria</th>
-            <th>NomeMercadoria</th>
+            <th>Código da Mercadoria</th>
+            <th>Tipo de Mercadoria</th>
+            <th>Nome da Mercadoria</th>
             <th>Quantidade</th>
             <th>Preco</th>
-            <th>TipoNegociacao</th>
+            <th>Tipo de Negociacao</th>
 
         </tr>
     </thead>
@@ -22,7 +22,7 @@
                 <td>@u.Quantidade</td>
                 <td>@u.Preco</td>
                 <td>@u.TipoNegociacao</td>
-                <td><button class="btn btn-danger" onclick="window.location.href = '@Url.Action("Excluir", "Agentes", new { id = u.Id })';"> Excluir </button></td>
+                <td><button class="btn btn-danger" onclick="Excluir(@u.Id);"> Excluir </button></td>
                 <td><button class="btn btn-success" onclick="window.location.href = '@Url.Action("Editar", "Mercadoria", new { id = u.Id })';"> Editar </button></td>
 
             </tr>

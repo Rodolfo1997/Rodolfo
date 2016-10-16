@@ -56,5 +56,18 @@ namespace NegociacaoMerca.Controllers
 
         }
 
+        public ActionResult Excluir(int id)
+        {
+            var mercadoria = mercadoriaRepo.SelecionarMercadoriaId(id);
+            mercadoriaRepo.Excluir(mercadoria);
+
+            return Content("MercadoriaExcluida");
+        }
+
+        public ActionResult Buscar(string nomeMercadoria, string codMercadoria)
+        {
+            var mercadoria = mercadoriaRepo.ListarMercadoriasFiltro(nomeMercadoria, codMercadoria);
+            return PartialView("Partial/_mercadorias", mercadoria);
+        }
     }
 }

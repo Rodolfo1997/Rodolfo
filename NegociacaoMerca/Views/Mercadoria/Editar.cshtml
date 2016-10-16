@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Cadastrar";
 }
 
@@ -9,30 +8,33 @@
 
 @using (Html.BeginForm("SalvarEdicao", "Mercadoria", FormMethod.Post, new { @id = "MercadoriaForm" }))
 {
-<p id="MenssagemErro" style="color:red; display:none"> Por favor! Preencha os Campos</p>
+    <p class="Erro" id="MenssagemErro" style="color:red; display:none"> Por favor! Preencha os Campos</p>
 
-@Html.HiddenFor(a => a.Id, new { @class = "form-control" })
+    @Html.HiddenFor(a => a.Id, new { @class = "form-control" })
 
-@Html.LabelFor(a => a.CodMercadoria, "Código Mercadoria")
-@Html.TextBoxFor(a => a.CodMercadoria, new { @class = "form-control" })
+    <p class="Erro" id="MenssagemErroCodMercadoria" style="color:red; display:none">Valor digitado maior que o permitido</p>
+    @Html.LabelFor(a => a.CodMercadoria, "Código da Mercadoria")
+    @Html.TextBoxFor(a => a.CodMercadoria, new { @class = "form-control", @style = "margin-bottom: 10px;" })
 
-@Html.LabelFor(a => a.TipoMercadoria, "Tipo Mercadoria")
-@Html.TextBoxFor(a => a.TipoMercadoria, new { @class = "form-control" })
+    <p class="Erro" id="MenssagemErroTipoMercadoria" style="color:red; display:none">Valor digitado maior que o permitido</p>
+    @Html.LabelFor(a => a.TipoMercadoria, "Tipo de Mercadoria")
+    @Html.TextBoxFor(a => a.TipoMercadoria, new { @class = "form-control", @style = "margin-bottom: 10px;" })
 
+    <p class="Erro" id="MenssagemErroNomeMercadoria" style="color:red; display:none"> Valor digitado maior que o permitido</p>
+    @Html.LabelFor(a => a.NomeMercadoria, "Nome da Mercadoria")
+    @Html.TextBoxFor(a => a.NomeMercadoria, new { @class = "form-control", @style = "margin-bottom: 10px;" })
 
-@Html.LabelFor(a => a.NomeMercadoria, "Nome Mercadoria")
-@Html.TextBoxFor(a => a.NomeMercadoria, new { @class = "form-control" })
+    <p class="Erro" id="MenssagemErroQuantidade" style="color:red; display:none"> Por favor! Digite apenas números</p>
+    @Html.LabelFor(a => a.Quantidade, "Quantidade")
+    @Html.TextBoxFor(a => a.Quantidade, new { @class = "form-control", @style = "margin-bottom: 10px;" })
 
+    <p class="Erro" id="MenssagemErroPreco" style="color:red; display:none">  Por favor! Digite apenas números Ex: 100.00 (Obs:Utilise " . " )</p>
+    @Html.LabelFor(a => a.Preco, "Preco")
+    @Html.TextBoxFor(a => a.Preco, new { @class = "form-control", @style = "margin-bottom: 10px; "})
 
-@Html.LabelFor(a => a.Quantidade, "Quantidade")
-@Html.TextBoxFor(a => a.Quantidade, new { @class = "form-control" })
-
-
-@Html.LabelFor(a => a.Preco, "Preco")
-@Html.TextBoxFor(a => a.Preco, new { @class = "form-control" })
-
-@Html.Label("Tipo Negociacao")
-@Html.EnumDropDownListFor(a => a.TipoNegociacao, "Tipo Negociacao", new { @class = "form-control" })
+    <p class="Erro" id="MenssagemErroTipoNegociacao" style="color:red; display:none">  Por favor! Selecine um Tipo de Negociação</p>
+    @Html.Label("Tipo de Negociacao")
+    @Html.EnumDropDownListFor(a => a.TipoNegociacao, "Tipo Negociacao", new { @class = "form-control" })
 
 }
 <button class="btn-success" style="margin-top:20px;" onclick="Salvar();"> Cadastrar </button>
@@ -42,21 +44,53 @@
         $(function () { })
 
         function Salvar() {
-
+            $(".Erro").hide();
             debugger;
             var codMercadoria = $("#CodMercadoria").val();
             var tipoMercadoria = $("#TipoMercadoria").val();
             var nomeMercadoria = $("#NomeMercadoria").val();
             var quantidade = $("#Quantidade").val();
             var preco = $("#Preco").val();
+            var tipoNegociacao = $("#TipoNegociacao").val();
 
             if (codMercadoria == "" && tipoMercadoria == "" && nomeMercadoria == "" && quantidade == "" && preco == "") {
                 $("#MenssagemErro").show();
+                //$("#MenssagemErro").hide(20000);
             }
             else {
-                $("#MercadoriaForm").submit();
+                if ((codMercadoria.length) >= 10 || codMercadoria == "") {
+                    $("#MenssagemErroCodMercadoria").show();
+                    //$("#MenssagemErroCodMercadoria").hide(20000);
+                }
+
+                if ((tipoMercadoria.length) >= 30 || tipoMercadoria == "") {
+                    $("#MenssagemErroTipoMercadoria").show();
+                    //$("#MenssagemErroTipoMercadoria").hide(20000);
+                }
+
+                if (nomeMercadoria.length >= 30 || nomeMercadoria == "") {
+                    $("#MenssagemErroNomeMercadoria").show();
+                    //$("#MenssagemErroNomeMercadoria").hide(20000);
+
+                }
+
+                if (!($.isNumeric(quantidade))) {
+                    $("#MenssagemErroQuantidade").show();
+                    //$("#MenssagemErroQuantidade").hide(20000);
+                }
+
+                if (!($.isNumeric(preco))) {
+                    $("#MenssagemErroPreco").show();
+                    //$("#MenssagemErroPreco").hide(20000);
+                }
+                if (tipoNegociacao == 0) {
+                    $("#MenssagemErroTipoNegociacao").show();
+                }
             }
 
+            if (codMercadoria.length <= 10 && tipoMercadoria.length <= 30 && nomeMercadoria.length <= 30 && $.isNumeric(quantidade) && $.isNumeric(preco) && tipoNegociacao != 0)
+                $("#MercadoriaForm").submit();
         }
+
     </script>
 }

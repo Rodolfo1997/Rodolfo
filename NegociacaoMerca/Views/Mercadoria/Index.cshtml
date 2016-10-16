@@ -1,15 +1,22 @@
 ﻿@model List<NegociacaoMerca.Entidades.Mercadoria>
+
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Mercadorias</h2>
+
+<div style="margin-top:30px; height:50px;">
+    @Html.Label("Código da Mercadoria: ")
+    @Html.TextBox("cod", "", new { id = "CodMercadoria", style = "margin-bottom:40px;" })
+
+    @Html.Label("Nome da Mercadoria: ", new { style = "margin-bottom:40px;  padding-left: 10px;" })
+    @Html.TextBox("nomes", "", new { id = "NomeMercadoria", style = "margin-bottom:40px; margin-right: 10px;" })
+
+    <button style="clear:both;" class="btn btn-info" onclick="Buscar();"> Buscar </button>
+</div>
 
 <button style="float:right; clear:both;" class="btn btn-info" onclick="Cadastrar();"> Nova Mercadoria </button>
-
-@Html.Label("Nome Mercadoria")
-@*@Html.TextBox("nomes", "", new { id = "NomeAgente", style = "margin-bottom:40px;" })*@
-<button style="clear:both;" class="btn btn-info" onclick="Buscar();"> Buscar </button>
 
 <div id="mercadoriaTable">
 
@@ -17,33 +24,63 @@
 
 @section scripts{
     <script>
-    $(function () {
+        $(function () {
 
-        ListarMercadorias();
+            ListarMercadorias();
 
-    })
+        })
 
-    function ListarMercadorias() {
-        $.ajax({
-            url: '@Url.Action("ListarMercadorias", "Mercadoria")',
-            type: "post",
-            dataType: "html",
-            data: {
+        function ListarMercadorias() {
+            $.ajax({
+                url: '@Url.Action("ListarMercadorias", "Mercadoria")',
+                type: "post",
+                dataType: "html",
+                data: {
 
-            },
+                },
 
-            success: function (data) {
-                $('#mercadoriaTable').html(data);
-            }
-        });
-    }
-
-    function Cadastrar() {
-        window.location.href = '@Url.Action("Cadastrar", "Mercadoria")';
+                success: function (data) {
+                    $('#mercadoriaTable').html(data);
+                }
+            });
         }
 
-        function Editar() {
-            window.location.href = '@Url.Action("Editar", "Mercadoria")';
+        function Cadastrar() {
+            window.location.href = '@Url.Action("Cadastrar", "Mercadoria")';
+        }
+
+        function Excluir(id) {
+            var excluir = confirm("Deseja excluir essa mercadoria?");
+            if (excluir) {
+
+                $.ajax({
+                    url: '@Url.Action("Excluir", "Mercadoria")',
+                    type: "post",
+                    dataType: "html",
+                    data: {
+                        id: id,
+                    },
+                    success: function (data) {
+                        ListarMercadorias();
+                    }
+                });
+            }
+        }
+
+        function Buscar() {
+            $.ajax({
+                url: '@Url.Action("Buscar", "Mercadoria")',
+                type: "post",
+                dataType: "html",
+                data: {
+                    codMercadoria: $('#CodMercadoria').val(),
+                    nomeMercadoria: $('#NomeMercadoria').val()
+                },
+                success: function (data) {
+  
+                    $("#mercadoriaTable").html(data);
+                }
+            });
         }
 
     </script>

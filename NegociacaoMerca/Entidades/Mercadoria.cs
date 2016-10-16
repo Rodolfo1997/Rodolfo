@@ -8,8 +8,8 @@ namespace NegociacaoMerca.Entidades
     public class Mercadoria
     {
         public int Id { get; set; }
-        
-        public int CodMercadoria {get; set;}
+
+        public string CodMercadoria { get; set; }
 
         public string TipoMercadoria {get; set;}
  
