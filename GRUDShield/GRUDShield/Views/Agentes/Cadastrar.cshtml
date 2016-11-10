@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "Cadastrar";
+}
+
+@model GRUDShield.Entidades.Agente
+
+<h2>Cadastro de Agente</h2>
+
+@using (Html.BeginForm("Inserir", "Agentes", FormMethod.Post))
+{
+    @Html.HiddenFor(a => a.id, new { @class = "form-control" });
+    
+    @Html.LabelFor(a => a.nome, "Nome")
+    @Html.TextBoxFor(a => a.nome, new { @class = "form-control" })
+    <br/>
+    
+    @Html.LabelFor(a => a.nivel, "Nivel")
+    @Html.TextBoxFor(a => a.nivel, new { @class = "form-control" })
+    <br/>
+    
+    @Html.LabelFor(a => a.funcao, "Função")
+    @Html.TextBoxFor(a => a.funcao, new { @class = "form-control" })
+    <br />
+    
+    @Html.LabelFor(a => a.inumano, "Inumano")
+    @Html.TextBoxFor(a => a.inumano, new { @class = "form-control" })
+    <br />
+
+    @Html.LabelFor(a => a.equipe, "Equipe")
+    @Html.TextBoxFor(a => a.equipe, new { @class = "form-control" })
+    <br />
+    
+    @Html.LabelFor(a => a.poderes, "Poderes")
+    @Html.TextBoxFor(a => a.poderes, new { @class = "form-control" })
+    <br />
+
+    @Html.LabelFor(a => a.poderes, "Arquirrival")
+    @Html.TextBoxFor(a => a.arquirrival, new { @class = "form-control" })
+    <br />
+
+    <input type="submit" value="Salvar" />
+}
+
+

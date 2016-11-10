@@ -1,0 +1,29 @@
+﻿@model List<GRUDShield.Entidades.AgentesXViloes>
+
+@{
+    ViewBag.Title = "AgentesXViloes";
+}
+
+<h2>AgentesXViloes</h2>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+
+            <th>Agente</th>
+            <th>Vilão</th>
+         
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var u in Model)
+        {
+            <tr>
+                <td>@u.nome</td>
+                <td>@u.arquirrival</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

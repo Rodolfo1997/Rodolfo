@@ -1,0 +1,72 @@
+﻿@model List<GRUDShield.Entidades.Agente>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Agentes</h2>
+
+<button style="float:right; clear:both;" class="btn btn-info" onclick="cadastrar();"> Novo Agente </button>
+
+@Html.Label("Nome Agente")
+@Html.TextBox("nomes", "", new { id = "NomeAgente", style = "margin-bottom:40px;" })
+<button style="clear:both;" class="btn btn-info" onclick="Buscar();"> Buscar </button>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+
+            <th>Nome</th>
+            <th>Nivel</th>
+            <th>Função</th>
+            <th>Inumano</th>
+            <th>Equipe</th>
+            <th>Poderes</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var u in Model)
+        {
+            <tr>
+                <td>@u.nome</td>
+                <td>@u.nivel</td>
+                <td>@u.funcao</td>
+                <td>@u.inumano</td>
+                <td>@u.equipe</td>
+                <td>@u.poderes</td>
+                <td><button class="btn btn-danger" onclick="window.location.href = '@Url.Action("Excluir", "Agentes", new { id = u.id })';"> Excluir </button></td>
+                <td><button class="btn btn-success" onclick="window.location.href = '@Url.Action("Editar", "Agentes", new { id = u.id })';"> Editar </button></td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+
+    function cadastrar() {
+        window.location.href = '@Url.Action("Cadastrar", "Agentes")';
+    }
+
+    
+
+        function Buscar() {
+
+            $.ajax({
+                url: '@Url.Action("BuscarAgente", "Agentes")',
+                type: "post",
+                dataType: "html",
+                data: {
+                    nome: $("#NomeAgente").val(),
+                },
+
+                success: function (data) {
+
+                    $("body").html(data)
+
+                }
+            });
+        }
+
+
+</script>
